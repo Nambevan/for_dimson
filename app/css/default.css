@@ -194,7 +194,8 @@ body {
   height: 30px;
   outline-color: #fff;
   box-sizing: border-box;
-  font-family: "Arsenal-Italic", sans-serif; }
+  font-family: "Arsenal-Italic", sans-serif;
+  width: 165px; }
 
 .login-title {
   font-family: "Arsenal-Bold", sans-serif;
