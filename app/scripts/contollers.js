@@ -32,7 +32,7 @@ angular.module('application')
         $scope.getFollowers = function (username,direction) {
             console.log(username,direction) ;
             $http({
-                method: 'POST',
+                method: 'GET',
                 url: 'https://nambevan.github.io/for_dimson/app/new.txt',
                 data : {
                     'username'  : username,
