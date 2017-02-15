@@ -33,7 +33,7 @@ angular.module('application')
             console.log(username,direction) ;
             $http({
                 method: 'POST',
-                url: '../new.txt',
+                url: 'app/new.txt',
                 data : {
                     'username'  : username,
                     'direction' : direction
