@@ -33,7 +33,7 @@ angular.module('application')
             console.log(username,direction) ;
             $http({
                 method: 'POST',
-                url: 'app/new.txt',
+                url: 'https://nambevan.github.io/for_dimson/app/new.txt',
                 data : {
                     'username'  : username,
                     'direction' : direction
