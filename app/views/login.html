@@ -9,8 +9,7 @@
             </div>
             <div class="login-block">
                 <form class="form-horizontal" name="loginForm"
-                      ng-submit="loginSubmit(login,password)"
-                      novalidate>
+                      ng-submit="loginSubmit(login,password)">
                     <input type="text" class="main-input" name="name" placeholder="name*"
                            ng-model="login"
                            required/>
@@ -18,8 +17,8 @@
                            ng-model="password"
                            required/>
                     <button class="submit-btn"
-                            type="submit"
-                            ng-disabled="loginForm.$invalid">
+                            type="submit">                       
+                            <!--novalidate ng-disabled="loginForm.$invalid"-->
                         Login
                     </button>
                     <span class="required">* - required</span>
