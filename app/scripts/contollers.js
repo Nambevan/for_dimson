@@ -15,7 +15,7 @@ angular.module('application')
                         }
             }).then(
                 function successCallback(response) {
-                console.log('Vde ok, krasava',response);
+                console.log('ok',response);
             },
                 function errorCallback(response) {
                     $scope.errorMss = 'Something wrong, ' + ' status ' + '" '+response.status+' "';
@@ -26,7 +26,6 @@ angular.module('application')
 
     .controller('mainController', ['$scope','usersFactory','$http', function($scope, usersFactory, $http) {
         
-        //test
         // $scope.users= usersFactory.getUsers();
         
         $scope.getFollowers = function (username,direction) {
