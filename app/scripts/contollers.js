@@ -32,19 +32,46 @@ angular.module('application')
             console.log(username,direction) ;
             $http({
                 method: 'GET',
-                url: 'https://nambevan.github.io/for_dimson/app/new.txt',
+                url: '../new.json',
                 data : {
                     'username'  : username,
                     'direction' : direction
                 }
             }).then(
                 function successCallback(response) {
-                    console.log(response);
+                    // console.log(response);
                     $scope.users = response.data;
                 },
                 function errorCallback(response) {
                     $scope.errorMss = 'Something wrong, ' + ' status ' + '" ' + response.status+' "';
                 });
+        };
+
+        $scope.checkAll = function () {
+            var elements = document.querySelectorAll('.checkbox');
+            for( var i = 0; i <= elements.length; i++){
+                elements[i].checked = true;
+            }
+        };
+
+        $scope.unCheckAll = function () {
+            var elements = document.querySelectorAll('.checkbox');
+            for( var i = 0; i <= elements.length; i++){
+                var elements = document.querySelectorAll('.checkbox');
+                elements[i].checked = false;
+            }
+        };
+
+        $scope.unSubscribe =function () {
+            var elements = document.querySelectorAll('.checkbox');
+            var arrChecked = [];
+            $scope.errorMss = '';
+            for( var i = 0; i <= elements.length; i++){
+                if(elements[i].checked == true){
+                   arrChecked.push(elements[i].id);
+                    console.log(arrChecked);
+                }
+            }
         }
     }])
 ;
