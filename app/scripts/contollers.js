@@ -62,16 +62,23 @@ angular.module('application')
             }
         };
 
-        $scope.unSubscribe =function () {
-            var elements = document.querySelectorAll('.checkbox');
-            var arrChecked = [];
-            $scope.errorMss = '';
-            for( var i = 0; i <= elements.length; i++){
-                if(elements[i].checked == true){
-                   arrChecked.push(elements[i].id);
-                    console.log(arrChecked);
-                }
-            }
+       $scope.unSubscribe =function () {
+            var elements = document.querySelectorAll('.checkbox:checked');
+            $http({
+                method: 'POST',
+                url: 'http://example.com',
+                data : elements
+            }).then(
+                function successCallback(response) {
+                    for( var i = 0; i <= elements.length; i++){
+                        console.log(elements[i].id);
+                    }
+                },
+                function errorCallback(response) {
+                    for( var i = 0; i <= elements.length; i++){
+                        console.log(elements[i].id);
+                    }
+                });
         }
     }])
 ;
