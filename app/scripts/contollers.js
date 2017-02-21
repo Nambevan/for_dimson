@@ -1,9 +1,7 @@
 'use strict';
-
 angular.module('application')
-
     .controller('loginController', ['$scope','$http', function($scope,$http) {
-        
+//send login info
         $scope.loginSubmit = function (login,password) {
             console.log(login,password);
             $http({
@@ -23,15 +21,12 @@ angular.module('application')
             });
         }
     }])
-
     .controller('mainController', ['$scope','usersFactory','$http', function($scope, usersFactory, $http) {
-        
-        // $scope.users= usersFactory.getUsers();
-        
+//send search keyword
         $scope.getFollowers = function (username,direction) {
             console.log(username,direction) ;
             $http({
-                method: 'GET',
+                method: 'POST',
                 url: '../new.json',
                 data : {
                     'username'  : username,
@@ -39,21 +34,22 @@ angular.module('application')
                 }
             }).then(
                 function successCallback(response) {
-                    // console.log(response);
                     $scope.users = response.data;
                 },
                 function errorCallback(response) {
                     $scope.errorMss = 'Something wrong, ' + ' status ' + '" ' + response.status+' "';
                 });
         };
-
+//check all checkboxes
         $scope.checkAll = function () {
+            //var elements = document.getElementsByClassName('checkbox');
             var elements = document.querySelectorAll('.checkbox');
             for( var i = 0; i <= elements.length; i++){
                 elements[i].checked = true;
+                console.log(typeof(elements[i]),elements[i]);
             }
         };
-
+//uncheck all checkboxes
         $scope.unCheckAll = function () {
             var elements = document.querySelectorAll('.checkbox');
             for( var i = 0; i <= elements.length; i++){
@@ -61,25 +57,26 @@ angular.module('application')
                 elements[i].checked = false;
             }
         };
-
-       $scope.unSubscribe =function () {
-            var elements = document.querySelectorAll('.checkbox:checked');
+//send list of users id-s
+        var usersId = [];
+        $scope.unSubscribe =function () {
+            var usersList = document.querySelectorAll('.checkbox:checked');
+            for( var i = 0; i < usersList.length; i++){
+                usersId.push(usersList[i].value);
+            }
             $http({
                 method: 'POST',
                 url: 'http://example.com',
-                data : elements
+                data : usersId
             }).then(
                 function successCallback(response) {
-                    for( var i = 0; i <= elements.length; i++){
-                        console.log(elements[i].id);
-                    }
+                    console.log(typeof(usersId),usersId);
                 },
                 function errorCallback(response) {
-                    for( var i = 0; i <= elements.length; i++){
-                        console.log(elements[i].id);
-                    }
-                });
-        }
+                    console.log(typeof(usersId),usersId);
+            });
+        };
+
     }])
 ;
 
