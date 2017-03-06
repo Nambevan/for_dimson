@@ -23,7 +23,9 @@ angular.module('application')
     }])
     .controller('mainController', ['$scope','usersFactory','$http', function($scope, usersFactory, $http) {
 //send search keyword
+        var preloader = document.getElementById('preloader');
         $scope.getFollowers = function (username,direction) {
+            preloader.style.display='block';
             console.log(username,direction) ;
             $http({
                 method: 'POST',
@@ -35,6 +37,7 @@ angular.module('application')
             }).then(
                 function successCallback(response) {
                     $scope.users = response.data;
+                    preloader.style.display='none';
                 },
                 function errorCallback(response) {
                     $scope.errorMss = 'Something wrong, ' + ' status ' + '" ' + response.status+' "';
