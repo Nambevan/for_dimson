@@ -24,24 +24,30 @@ angular.module('application')
     .controller('mainController', ['$scope','usersFactory','$http', function($scope, usersFactory, $http) {
 //send search keyword
         var preloader = document.getElementById('preloader');
+
+
         $scope.getFollowers = function (username,direction) {
-            preloader.style.display='block';
-            console.log(username,direction) ;
-            $http({
-                method: 'POST',
-                url: '../new.json',
-                data : {
-                    'username'  : username,
-                    'direction' : direction
-                }
-            }).then(
-                function successCallback(response) {
-                    $scope.users = response.data;
-                    preloader.style.display='none';
-                },
-                function errorCallback(response) {
-                    $scope.errorMss = 'Something wrong, ' + ' status ' + '" ' + response.status+' "';
-                });
+
+            function Timeout() {
+                console.log(username,direction) ;
+                $http({
+                    method: 'POST',
+                    url: '../new.json',
+                    data : {
+                        'username'  : username,
+                        'direction' : direction
+                    }
+                }).then(
+                    function successCallback(response) {
+                        $scope.users = response.data;
+                    },
+                    function errorCallback(response) {
+                        $scope.errorMss = 'Something wrong, ' + ' status ' + '" ' + response.status+' "';
+                    });
+            };
+
+            setTimeout(Timeout, 3000);
+
         };
 //check all checkboxes
         $scope.checkAll = function () {
@@ -63,6 +69,7 @@ angular.module('application')
 //send list of users id-s
         var usersId = [];
         $scope.unSubscribe =function () {
+            preloader.style.display='block';
             var usersList = document.querySelectorAll('.checkbox:checked');
             for( var i = 0; i < usersList.length; i++){
                 usersId.push(usersList[i].value);
@@ -73,9 +80,11 @@ angular.module('application')
                 data : usersId
             }).then(
                 function successCallback(response) {
+                    preloader.style.display='none';
                     console.log(typeof(usersId),usersId);
                 },
                 function errorCallback(response) {
+                    preloader.style.display='none';
                     console.log(typeof(usersId),usersId);
             });
         };
