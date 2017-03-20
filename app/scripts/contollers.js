@@ -1,5 +1,6 @@
 'use strict';
 angular.module('application')
+
     .controller('loginController', ['$scope','$http', function($scope,$http) {
 //send login info
         $scope.loginSubmit = function (login,password) {
@@ -13,41 +14,33 @@ angular.module('application')
                         }
             }).then(
                 function successCallback(response) {
-                console.log('ok',response);
+                console.log('ok');
             },
                 function errorCallback(response) {
                     $scope.errorMss = 'Something wrong, ' + ' status ' + '" '+response.status+' "';
-                    
             });
         }
     }])
+
     .controller('mainController', ['$scope','usersFactory','$http', function($scope, usersFactory, $http) {
 //send search keyword
         var preloader = document.getElementById('preloader');
-
-
         $scope.getFollowers = function (username,direction) {
-
-            function Timeout() {
-                console.log(username,direction) ;
-                $http({
-                    method: 'POST',
-                    url: '../new.json',
-                    data : {
-                        'username'  : username,
-                        'direction' : direction
-                    }
-                }).then(
-                    function successCallback(response) {
-                        $scope.users = response.data;
-                    },
-                    function errorCallback(response) {
-                        $scope.errorMss = 'Something wrong, ' + ' status ' + '" ' + response.status+' "';
-                    });
-            };
-
-            setTimeout(Timeout, 3000);
-
+            console.log(username,direction) ;
+            $http({
+                method: 'POST',
+                url: '../new.json',
+                data : {
+                    'username'  : username,
+                    'direction' : direction
+                }
+            }).then(
+                function successCallback(response) {
+                    $scope.users = response.data;
+                },
+                function errorCallback(response) {
+                    $scope.errorMss = 'Something wrong, ' + ' status ' + '" ' + response.status+' "';
+                });
         };
 //check all checkboxes
         $scope.checkAll = function () {
@@ -55,7 +48,6 @@ angular.module('application')
             var elements = document.querySelectorAll('.checkbox');
             for( var i = 0; i <= elements.length; i++){
                 elements[i].checked = true;
-                console.log(typeof(elements[i]),elements[i]);
             }
         };
 //uncheck all checkboxes
@@ -66,7 +58,7 @@ angular.module('application')
                 elements[i].checked = false;
             }
         };
-//send list of users id-s
+//send list of users id-s for unsubscribe
         var usersId = [];
         $scope.unSubscribe =function () {
             preloader.style.display='block';
@@ -74,22 +66,55 @@ angular.module('application')
             for( var i = 0; i < usersList.length; i++){
                 usersId.push(usersList[i].value);
             }
+            var usersIdJs = JSON.stringify(usersId);
+            console.log(usersIdJs);
             $http({
                 method: 'POST',
                 url: 'http://example.com',
-                data : usersId
+                data : usersIdJs
             }).then(
                 function successCallback(response) {
                     preloader.style.display='none';
-                    console.log(typeof(usersId),usersId);
                 },
                 function errorCallback(response) {
                     preloader.style.display='none';
-                    console.log(typeof(usersId),usersId);
             });
         };
-
     }])
+
+    .controller('getTasksController', ['$scope','$http', function($scope,$http) {
+//get tasks
+        function getTasks(){
+            $http({
+                method: 'GET',
+                url: '../tasks.json'
+            }).then(
+                function successCallback(response) {
+                    $scope.tasks = response.data;
+                });
+        }
+        setInterval(function(){
+            getTasks();
+            console.log('get times')
+        }, 5000);
+    }])
+
+    .controller('getTaskController', ['$scope','$http', function($scope,$http) {
+        function getTask(){
+            $http({
+                method: 'GET',
+                url: '../task.json'
+            }).then(
+                function successCallback(response) {
+                    $scope.tasks = response.data;
+                });
+        }
+        setInterval(function(){
+            getTask();
+            console.log('get times')
+        }, 5000);
+    }])
+
 ;
 
 

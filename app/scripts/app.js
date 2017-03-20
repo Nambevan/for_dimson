@@ -28,8 +28,27 @@ angular.module('application', ['ui.router'])
                     controller  : 'mainController'
                 }
             }
-        });
+        })
 
+        .state('app.tasks', {
+            url:'tasks',
+            views: {
+                'content@': {
+                    templateUrl : 'views/tasks.html',
+                    controller  : 'getTasksController'
+                }
+            }
+        })
+
+        .state('app.task', {
+            url:'task',
+            views: {
+                'content@': {
+                    templateUrl : 'views/task.html',
+                    controller  : 'mainController'
+                }
+            }
+        });
 
         $urlRouterProvider.otherwise('/');
     })

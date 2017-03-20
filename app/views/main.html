@@ -12,8 +12,28 @@
 <div class="container" ng-controller="mainController">
     <div class="row main-page">
         <div class="col-md-12">
-            <div ui-view="searchForm"></div>
-            <p>main.html</p>
+            <div class="search-block">
+
+                <input type="text" name="search" class="main-input" ng-model="username" />
+                <label for="followers">
+                    <input type="radio" id="followers" name="direction" value="followers" ng-model="direction" checked  />
+                    Get followers
+                </label>
+                <label for="follows">
+                    <input type="radio" id="follows" name="direction" value="follows" ng-model="direction" />
+                    Get follows
+                </label>
+                <button ng-click="getFollowers(username,direction)" class="submit-btn">Search</button>
+
+                <div class="actions">
+                    <button class="submit-btn">Subscribe</button>
+                    <button class="submit-btn" ng-click="unSubscribe()">UnSubscribe</button>
+                    <span class="error-massage">{{errorMss}}</span>
+                    <button class="submit-btn pull-right" ng-click="checkAll()">Select all</button>
+                    <button class="submit-btn pull-right" ng-click="unCheckAll()">Unselect all</button>
+                </div>
+
+            </div>
             <ul class="users-list">
                 <li ng-repeat="user in users | filter : testFilter" class="users-list-block">
                     <div class="user-avatar" style="background-image: url('{{user.user.profile_pic_url}}')"></div>
